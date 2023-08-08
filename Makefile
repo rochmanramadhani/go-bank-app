@@ -70,7 +70,14 @@ build:
 	@go build -o bin/server ./main.go
 	@echo "Server built."
 
+# sqlc commands
+sqlc:
+	@echo "Generating sqlc..."
+	@sqlc generate
+	@echo "sqlc generated."
+
 # Phony targets
 .PHONY: postgres-create postgres-stop postgres-start postgres-delete \
         createdb dropdb db-migrate db-rollback \
-        seed test run build
+        seed test run build \
+        sqlc
