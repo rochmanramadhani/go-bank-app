@@ -57,7 +57,7 @@ seed:
 
 test:
 	@echo "Running tests..."
-	@go test -v ./...
+	@go test -v -cover ./...
 	@echo "Tests passed."
 
 run:
