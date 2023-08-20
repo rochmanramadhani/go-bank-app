@@ -4,19 +4,19 @@ import (
 	"database/sql"
 	"github.com/rochmanramadhani/go-bank-app/api"
 	db "github.com/rochmanramadhani/go-bank-app/db/sqlc"
+	"github.com/rochmanramadhani/go-bank-app/util"
 	"log"
 
 	_ "github.com/lib/pq"
 )
 
-const (
-	driverName     = "postgres"
-	dataSourceName = "postgresql://root:password@localhost:5432/bank_app?sslmode=disable"
-	serverAddress  = "0.0.0.0:8080"
-)
-
 func main() {
-	conn, err := sql.Open(driverName, dataSourceName)
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("cannot load config:", err)
+	}
+
+	conn, err := sql.Open(config.DBDriver, config.DBSourceName)
 	if err != nil {
 		log.Fatal("cannot connect to db:", err)
 	}
@@ -24,7 +24,7 @@ func main() {
 	store := db.NewStore(conn)
 	server := api.NewServer(store)
 
-	err = server.Start(serverAddress)
+	err = server.Start(config.ServerAddress)
 	if err != nil {
 		log.Fatal("cannot start server:", err)
 	}
