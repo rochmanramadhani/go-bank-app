@@ -23,3 +23,6 @@ go.work
 # Code editors
 .idea
 .vscode
+
+# Temporary files
+deadlock_simulation.sql
