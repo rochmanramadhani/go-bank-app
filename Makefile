@@ -76,8 +76,15 @@ sqlc-generate:
 	@sqlc generate
 	@echo "sqlc generated."
 
+# mockgen commands
+mockgen-generate:
+	@echo "Generating mockgen..."
+	@mockgen -package mockdb -destination db/mock/store.go github.com/rochmanramadhani/go-bank-app/db/sqlc Store
+	@echo "mockgen generated."
+
 # Phony targets
 .PHONY: docker-create-postgres docker-stop-postgres docker-start-postgres docker-delete-postgres \
         db-create db-drop db-migrate db-rollback \
         app-seed app-test app-run app-build \
-        sqlc-generate
+        sqlc-generate \
+        mockgen-generate
